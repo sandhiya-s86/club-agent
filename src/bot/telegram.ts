@@ -6,9 +6,11 @@ import { db } from '../db/supabase';
 dotenv.config();
 
 const TOKEN = process.env.TELEGRAM_BOT_TOKEN || '';
+const USE_WEBHOOK = process.env.USE_WEBHOOK === 'true';
+const WEBHOOK_URL = process.env.WEBHOOK_URL || '';
 
-// Create bot instance
-export const bot = new TelegramBot(TOKEN, { polling: true });
+// Create bot instance - polling or webhook mode
+export const bot = new TelegramBot(TOKEN, { polling: !USE_WEBHOOK });
 
 // Track last processed message to avoid duplicates
 const processedMessages = new Set<string>();
@@ -303,4 +305,20 @@ export async function getBotInfo() {
     console.error('Failed to get bot info:', error);
     return null;
   }
+}
+
+// Set webhook URL for Telegram (used in Vercel/production mode)
+export async function setWebhook(url: string): Promise<void> {
+  try {
+    await bot.setWebHook(url);
+    console.log(`Webhook set to: ${url}`);
+  } catch (error) {
+    console.error('Failed to set webhook:', error);
+    throw error;
+  }
+}
+
+// Verify webhook (for Telegram's verification challenge)
+export function verifyWebhook(token: string): boolean {
+  return token === TOKEN;
 }
