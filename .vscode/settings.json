@@ -1,0 +1,4 @@
+{
+  "typescript.tsserver.excludeDirectories": ["node_modules"],
+  "javascript.tsserver.excludeDirectories": ["node_modules"]
+}
