@@ -12,7 +12,7 @@ export const llmConfig = {
   baseURL: 'https://api.minimax.io/anthropic/v1',
 
   // Model for Token Plan - MiniMax-M2.7 via Anthropic compatibility
-  model: 'MiniMax-M2.7',
+  model: 'MiniMax-M2',
 
   // Model settings
   temperature: 0.7,

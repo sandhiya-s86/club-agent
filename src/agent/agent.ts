@@ -464,7 +464,7 @@ async function callAnthropicAPI(messages: any[], system?: string, tools?: any[],
         'Content-Type': 'application/json',
       },
       body: JSON.stringify({
-        model: 'MiniMax-M2.7',
+        model: 'MiniMax-M2',
         messages,
         system,
         max_tokens: maxTokens,
